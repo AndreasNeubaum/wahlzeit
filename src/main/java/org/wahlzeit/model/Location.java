@@ -17,8 +17,8 @@ public class Location
     public Coordinate coordinate;//?private? --> public im Diagramm...
 
     /*
-    Aggregation "0..1" heißt eigentlich: jede Koordinate darf in HÖCHSTENS einer Location vorkaommen
-    --> alle Kooridinaten sind Unique!!
+    Aggregation "0..1" heißt eigentlich: jede Koordinate darf in HÖCHSTENS einer Location vorkommen
+    --> ein Objekt der Klasse Coordinate darf nie zwei Locations zugewiesen werden
     --> wirklich im Code erzwingen?? hoher Aufwnad und eigentlich sinnlos... --> "0..*"?!!!
     * */
 
