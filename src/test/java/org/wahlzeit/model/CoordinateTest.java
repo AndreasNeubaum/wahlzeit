@@ -1,0 +1,64 @@
+/*
+ * Copyright (c) 2006-2009 by Dirk Riehle, http://dirkriehle.com
+ *
+ * This file is part of the Wahlzeit photo rating application.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program. If not, see
+ * <http://www.gnu.org/licenses/>.
+ */
+
+package org.wahlzeit.model;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+/**
+ * Test cases for a variety of value object classes.
+ */
+public class CoordinateTest
+{
+	/**
+	 *
+	 */
+	@Test
+	public void testZeroDistance()
+	{
+		Coordinate c1 = new Coordinate(20, 7);
+		Coordinate c2 = new Coordinate(20, 7);
+
+		double distance1 = c1.getDistance(c2);
+		double distance2 = c2.getDistance(c1);
+
+		Assert.assertEquals(0, distance1, 1.0e-10);
+		Assert.assertEquals(0, distance2, 1.0e-10);
+	}
+
+	@Test
+	public void testZeroLongitude()
+	{
+		Coordinate c1 = new Coordinate(30, 0);
+		Coordinate c2 = new Coordinate(60, 0);
+
+		double distance1 = c1.getDistance(c2);
+		double distance2 = c2.getDistance(c1);
+
+		Assert.assertEquals(3335.847799, distance1, 1.0e-6);//6371*arctan(1/sqrt(3))
+		Assert.assertEquals(3335.847799, distance2, 1.0e-6);
+	}
+
+
+
+}
