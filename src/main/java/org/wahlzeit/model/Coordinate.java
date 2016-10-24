@@ -32,7 +32,7 @@ public class Coordinate
         return longitude;
     }
 
-    private static double DegToRad(double degrees)
+    public static double DegToRad(double degrees)
     {
         return (degrees/180)*Math.PI;
     }
