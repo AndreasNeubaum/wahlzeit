@@ -19,14 +19,10 @@
  */
 package org.wahlzeit.services.mailing;
 
-import com.google.appengine.tools.development.testing.LocalBlobstoreServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.googlecode.objectify.ObjectifyService;
-import junit.framework.TestCase;
+
 import org.junit.*;
 import org.wahlzeit.main.ServiceMain;
 import org.wahlzeit.services.EmailAddress;
-import org.wahlzeit.services.LogBuilder;
 
 
 import java.io.File;
@@ -50,48 +46,14 @@ public class EmailServiceTest /*extends TestCase*/ //nur fuer JUnit 3.8
 	protected EmailAddress validAddress;
 
 
-	/*
-	* wird in der ServiceMain.java startUp() benötigt, der den UserManager initialisiert, um die GoogleAPI korrekt zu initialisieren
-	* --> sonst excetion in 2. Zeile
-	* */
-	private static final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalBlobstoreServiceTestConfig());
-
-
-	@BeforeClass
-	public static void beforeClass() throws Exception
-	{
-		helper.setUp();
-
-		//Im Pfad muss der rootDirectroy config/templates/default existieren
-		// configures logging
-		String contextPath = "/home/andreas/IdeaProjects/wahlzeit/build/exploded-app";//sc.getContextPath();
-		System.setProperty("contextPath", contextPath);
-		//log.config(LogBuilder.createSystemMessage().
-		//		addParameter("System property context path", contextPath).toString());
-
-		// determines file system root path to resources
-		File dummyFile = new File(/*sc.getRealPath(*/"/home/andreas/IdeaProjects/wahlzeit/build/exploded-app/dummy.txt"/*)*/);
-		String rootDir = dummyFile.getParent();
-		//log.config(LogBuilder.createSystemMessage().
-		//		addParameter("Root directory", rootDir).toString());
-
-		ServiceMain.getInstance().startUp(false, rootDir);
-	}
-
-	@AfterClass
-	public static void afterClass() throws Exception
-	{
-		ServiceMain.getInstance().shutDown();//klappt nicht wegen ObjectifyService
-		helper.tearDown();
-	}
-
 
 	/**
 	 *
 	 */
 	@Before
-	public void setUp() throws Exception {
-		//super.setUp();
+	public void setUp() throws Exception
+	{
+		ServiceMain.getInstance().setIsInProduction(false);
 
 		emailService = EmailServiceManager.getDefaultService();
 
