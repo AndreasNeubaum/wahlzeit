@@ -22,7 +22,9 @@ import org.wahlzeit.model.persistence.GcsAdapterTest;
             PhotoFilterTest.class,
             TagsTest.class,
             UserStatusTest.class,
-            ValueTest.class
+            ValueTest.class,
+                MushroomPhotoTest.class,
+                MushroomPhotoFactoryTest.class
         })
 
 public class ModelTestSuite

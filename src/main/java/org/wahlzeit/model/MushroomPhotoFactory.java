@@ -5,8 +5,6 @@ package org.wahlzeit.model;
  */
 public class MushroomPhotoFactory extends PhotoFactory
 {
-    //private MushroomPhotoFactory instance;
-
     static
     {
         setInstance(new MushroomPhotoFactory());
@@ -17,11 +15,13 @@ public class MushroomPhotoFactory extends PhotoFactory
         //do nothing
     }
 
+
     /**
      * @methodtype factory
      */
     @Override
-    public Photo createPhoto() {
+    public Photo createPhoto()
+    {
         return new MushroomPhoto();
     }
 
