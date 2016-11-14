@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Subclass;
+
 import java.util.EnumSet;
 
 import static java.util.EnumSet.*;
@@ -7,6 +9,7 @@ import static java.util.EnumSet.*;
 /**
  * Created by andreas on 07.11.16.
  */
+@Subclass
 public class MushroomPhoto extends Photo
 {
     private boolean psychoactive;
