@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
 /**
  * Test cases for a variety of value object classes.
  */
-public class CoordinateTest
+public class SphericCoordinateTest
 {
 	/**
 	 *
@@ -36,8 +36,8 @@ public class CoordinateTest
 	@Test
 	public void testZeroDistance()
 	{
-		Coordinate c1 = new Coordinate(20, 7);
-		Coordinate c2 = new Coordinate(20, 7);
+		Coordinate c1 = new SphericCoordinate(20, 7);
+		Coordinate c2 = new SphericCoordinate(20, 7);
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -49,8 +49,8 @@ public class CoordinateTest
 	@Test
 	public void testZeroLongitude()
 	{
-		Coordinate c1 = new Coordinate(30, 0);
-		Coordinate c2 = new Coordinate(60, 0);
+		Coordinate c1 = new SphericCoordinate(30, 0);
+		Coordinate c2 = new SphericCoordinate(60, 0);
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -62,8 +62,8 @@ public class CoordinateTest
 	@Test
 	public void testZeroLatitude()
 	{
-		Coordinate c1 = new Coordinate(0, 30);
-		Coordinate c2 = new Coordinate(0, 60);
+		Coordinate c1 = new SphericCoordinate(0, 30);
+		Coordinate c2 = new SphericCoordinate(0, 60);
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -75,8 +75,8 @@ public class CoordinateTest
 	@Test
 	public void testBothZero()
 	{
-		Coordinate c1 = new Coordinate(0, 0);
-		Coordinate c2 = new Coordinate(0, 0);
+		Coordinate c1 = new SphericCoordinate(0, 0);
+		Coordinate c2 = new SphericCoordinate(0, 0);
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -85,10 +85,10 @@ public class CoordinateTest
 		Assert.assertEquals(0, distance2, 1.0e-10);
 	}
 
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testOneNull()
 	{
-		Coordinate c1 = new Coordinate(0, 0);
+		Coordinate c1 = new SphericCoordinate(0, 0);
 
 		double distance1 = c1.getDistance(null);
 	}
@@ -96,8 +96,8 @@ public class CoordinateTest
 	@Test
 	public void testTwoQuadrants1()
 	{
-		Coordinate c1 = new Coordinate(330, 0);
-		Coordinate c2 = new Coordinate(30, 0);
+		Coordinate c1 = new SphericCoordinate(330, 0);
+		Coordinate c2 = new SphericCoordinate(30, 0);
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -109,8 +109,8 @@ public class CoordinateTest
 	@Test
 	public void testTwoQuadrants2()
 	{
-		Coordinate c1 = new Coordinate(720, 0);
-		Coordinate c2 = new Coordinate(30, 0);
+		Coordinate c1 = new SphericCoordinate(720, 0);
+		Coordinate c2 = new SphericCoordinate(30, 0);
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -122,8 +122,8 @@ public class CoordinateTest
 	@Test
 	public void testTwoQuadrants3()
 	{
-		Coordinate c1 = new Coordinate(690, 0);
-		Coordinate c2 = new Coordinate(30, 0);
+		Coordinate c1 = new SphericCoordinate(690, 0);
+		Coordinate c2 = new SphericCoordinate(30, 0);
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -135,8 +135,8 @@ public class CoordinateTest
 	@Test
 	public void testTwoQuadrants4()
 	{
-		Coordinate c1 = new Coordinate(330, 30);
-		Coordinate c2 = new Coordinate(690, 30);
+		Coordinate c1 = new SphericCoordinate(330, 30);
+		Coordinate c2 = new SphericCoordinate(690, 30);
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -148,8 +148,8 @@ public class CoordinateTest
 	@Test
 	public void testPrime1()
 	{
-		Coordinate c1 = new Coordinate(7, 23);
-		Coordinate c2 = new Coordinate(47, 59);
+		Coordinate c1 = new SphericCoordinate(7, 23);
+		Coordinate c2 = new SphericCoordinate(47, 59);
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -161,8 +161,8 @@ public class CoordinateTest
 	@Test
 	public void testPrime2()
 	{
-		Coordinate c1 = new Coordinate(61, 7);
-		Coordinate c2 = new Coordinate(23, 41);
+		Coordinate c1 = new SphericCoordinate(61, 7);
+		Coordinate c2 = new SphericCoordinate(23, 41);
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -172,65 +172,27 @@ public class CoordinateTest
 	}
 
 	@Test
-	public void DegToRad30()
-	{
-		Assert.assertEquals(Math.PI/6, Coordinate.DegToRad(30), 1.0e-6);
-	}
-
-	@Test
-	public void DegToRad60()
-	{
-		Assert.assertEquals(Math.PI/3, Coordinate.DegToRad(60), 1.0e-6);
-	}
-
-	@Test
-	public void DegToRad90()
-	{
-		Assert.assertEquals(Math.PI/2, Coordinate.DegToRad(90), 1.0e-6);
-	}
-
-	@Test
-	public void DegToRad120()
-	{
-		Assert.assertEquals(Math.PI*(2/3.0), Coordinate.DegToRad(120), 1.0e-6);
-	}
-
-	@Test
-	public void DegToRad180()
-	{
-		Assert.assertEquals(Math.PI, Coordinate.DegToRad(180), 1.0e-6);
-	}
-
-	@Test
-	public void DegToRad360()
-	{
-		Assert.assertEquals(2*Math.PI, Coordinate.DegToRad(360), 1.0e-6);
-	}
-
-	@Test
-	public void DegToRad720()
-	{
-		Assert.assertEquals(4*Math.PI, Coordinate.DegToRad(720), 1.0e-6);
-	}
-
-	@Test
-	public void DegToRad730()
-	{
-		Assert.assertEquals((73/18.0)*Math.PI, Coordinate.DegToRad(730), 1.0e-6);
-	}
-
-	@Test
-	public void DegToRad47()
-	{
-		Assert.assertEquals((47/180.0)*Math.PI, Coordinate.DegToRad(47), 1.0e-6);
-	}
-
-	@Test
 	public void testGetter()
 	{
-		Coordinate c = new Coordinate(47, 11);
+		SphericCoordinate c = new SphericCoordinate(47, 11);
 		Assert.assertEquals(47, c.getLatitude(), 1.0e-6);
 		Assert.assertEquals(11, c.getLongitude(), 1.0e-6);
+		Assert.assertEquals(SphericCoordinate.EarthRadius, c.getRadius(), 1.0e-6);
+	}
+
+	@Test
+	public void testRadiusConstructor()
+	{
+		SphericCoordinate c = new SphericCoordinate(47, 11, 123);
+		Assert.assertEquals(123, c.getRadius(), 1.0e-6);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void wrongCoordinateTest()
+	{
+		SphericCoordinate sc = new SphericCoordinate(10,20,30);
+		CartesianCoordinate c = new CartesianCoordinate(20, 30, 40);
+		sc.getDistance(c);
 	}
 
 
