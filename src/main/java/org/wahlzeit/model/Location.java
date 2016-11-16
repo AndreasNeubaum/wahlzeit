@@ -10,10 +10,15 @@ package org.wahlzeit.model;
 * Copyright notice - none
 */
 
-import com.google.apphosting.api.ApiProxy;
+
+import com.googlecode.objectify.annotation.Ignore;
+
+
+
 
 public class Location
 {
+    @Ignore//ignore in objectify service
     public Coordinate coordinate;//?private? --> public im Diagramm...
 
     /*

@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 
+
 /*
 * Coordinate
 *
@@ -9,7 +10,6 @@ package org.wahlzeit.model;
 *
 * Copyright notice - none
 */
-
 public class SphericCoordinate implements Coordinate
 {
     private double latitude;

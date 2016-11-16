@@ -27,7 +27,7 @@ public class OfyService {
 		factory().register(Guest.class);
 		factory().register(PhotoCase.class);
 		factory().register(ImageWrapper.class);
-		factory().register(MushroomPhoto.class);
+		factory().register(MushroomPhoto.class);//neu
 	}
 
 	public static Objectify ofy() {
