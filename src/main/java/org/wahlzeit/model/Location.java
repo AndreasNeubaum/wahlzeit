@@ -18,8 +18,9 @@ import com.googlecode.objectify.annotation.Ignore;
 
 public class Location
 {
-    @Ignore//ignore in objectify service
-    public Coordinate coordinate;//?private? --> public im Diagramm...
+    //@Ignore//ignore in objectify service
+    //Interface doesnt work in persistance ofy service --> use concrete class and transform
+    public SphericCoordinate coordinate;
 
     /*
     Aggregation "0..1" heißt eigentlich: jede Koordinate darf in HÖCHSTENS einer Location vorkommen
@@ -29,7 +30,7 @@ public class Location
 
     public Location(Coordinate coordinate)
     {
-        this.coordinate = coordinate;
+        this.coordinate = AbstractCoordinate.toSpheric(coordinate);
     }
 
     public double getDistance(Location other)

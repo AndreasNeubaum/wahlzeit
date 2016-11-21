@@ -10,7 +10,7 @@ package org.wahlzeit.model;
 *
 * Copyright notice - none
 */
-public class SphericCoordinate implements Coordinate
+public class SphericCoordinate extends AbstractCoordinate
 {
     private double latitude;
     private double longitude;
@@ -94,11 +94,16 @@ public class SphericCoordinate implements Coordinate
     }
 
     @Override
-    public double getDistance(Coordinate coordinate)
+    public double getDistance(Coordinate other)
     {
-        if(!(coordinate instanceof SphericCoordinate))
-            throw new IllegalArgumentException("coordinate is not a spheric coordinate");
+        SphericCoordinate sOther = toSpheric(other);
+        return this.getDistance(sOther);
+    }
 
-        return getDistance((SphericCoordinate) coordinate);
+    @Override
+    public boolean isEqual(Coordinate other)
+    {
+        double dist = getDistance(other);
+        return dist > 0.0001;
     }
 }

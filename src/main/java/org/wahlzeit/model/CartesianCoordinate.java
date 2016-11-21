@@ -5,7 +5,7 @@ package org.wahlzeit.model;
  * Created by andreas on 14.11.16.
  */
 
-public class CartesianCoordinate implements Coordinate
+public class CartesianCoordinate extends AbstractCoordinate
 {
     private double x;
     private double y;
@@ -36,12 +36,8 @@ public class CartesianCoordinate implements Coordinate
     @Override
     public double getDistance(Coordinate other)
     {
-        if(!(other instanceof CartesianCoordinate))
-        {
-            throw new IllegalArgumentException("other coordinate must be a cartesian coordinate");
-        }
-
-        return getDistance((CartesianCoordinate) other);
+        CartesianCoordinate cOther = toCartesian(other);
+        return this.getDistance(cOther);
     }
 
     private double getDistance(CartesianCoordinate other)
@@ -58,5 +54,12 @@ public class CartesianCoordinate implements Coordinate
         double distance = Math.sqrt(deltaXSquared + deltaYSquared + deltaZSquared);
 
         return distance;
+    }
+
+    @Override
+    public boolean isEqual(Coordinate other)
+    {
+        double dist = getDistance(other);
+        return dist > 0.0001;
     }
 }
