@@ -26,8 +26,8 @@ public abstract class AbstractCoordinate implements Coordinate
         double z = co.getZ();
 
         double radius = Math.sqrt(x*x + y*y + z*z);
-        double longitude = Math.toDegrees(Math.atan2(y, x)) + 180;//statt -180..180 jetzt 0..360
-        double latitude = Math.toDegrees(Math.acos(z/radius))+90;// statt -90..90 jetzt 0..180
+        double longitude = Math.toDegrees(Math.atan2(y, x)); //+ 180;//statt -180..180 jetzt 0..360
+        double latitude = Math.toDegrees(Math.acos(z/radius));//+90;// statt -90..90 jetzt 0..180
 
         return new SphericCoordinate(latitude, longitude, radius);
     }
@@ -42,12 +42,12 @@ public abstract class AbstractCoordinate implements Coordinate
         SphericCoordinate sc = (SphericCoordinate) coord;
 
         double r = sc.getRadius();
-        double latitude = sc.getLatitude();
-        double longitude = sc.getLongitude();
+        double latitude = Math.toRadians(sc.getLatitude());
+        double longitude = Math.toRadians(sc.getLongitude());
 
-        double x = r * Math.sin(Math.toRadians(longitude)) * Math.cos(Math.toRadians(latitude));
-        double y = r * Math.sin(Math.toRadians(longitude)) * Math.sin(Math.toRadians(latitude));
-        double z = r * Math.cos(Math.toRadians(longitude));
+        double x = r * Math.sin(latitude) * Math.cos(longitude);
+        double y = r * Math.sin(latitude) * Math.sin(longitude);
+        double z = r * Math.cos(latitude);
 
         return new CartesianCoordinate(x, y, z);
     }

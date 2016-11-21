@@ -195,15 +195,17 @@ public class SphericCoordinateTest
 		sc.getDistance(c);
 	}
 
-	@Test
+	@Test//no exception
 	public void otherFormatCoordinateTestSameRadius()
 	{
 		//pythagoräisches quadrupel: 2*2+3*3+6*6=7*7
 		SphericCoordinate sc = new SphericCoordinate(10,20,7);//r=7
 		CartesianCoordinate c = new CartesianCoordinate(2, 3, 6);
-		sc.getDistance(c);
+		assertTrue(sc.getDistance(c)>0);
 	}
-
-
-
 }
+
+	//Rotation um die Latitude?
+
+
+

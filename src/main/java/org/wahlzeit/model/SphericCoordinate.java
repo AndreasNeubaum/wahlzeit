@@ -104,6 +104,6 @@ public class SphericCoordinate extends AbstractCoordinate
     public boolean isEqual(Coordinate other)
     {
         double dist = getDistance(other);
-        return dist > 0.0001;
+        return dist < 0.0001;
     }
 }

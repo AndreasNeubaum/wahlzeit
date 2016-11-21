@@ -51,4 +51,15 @@ public class CartesianCoordinateTest
         assertEquals(expectedDistance, c2.getDistance(c1), 1.0e-6);
     }
 
+    @Test
+    public void equalsItselfTest()
+    {
+        CartesianCoordinate c1 = new CartesianCoordinate(50, 60, 70);
+        CartesianCoordinate c2 = new CartesianCoordinate(50, 60, 70);
+
+        assertTrue(c1.isEqual(c2));
+        assertTrue(c1.isEqual(c1));
+        assertTrue(c2.isEqual(c2));
+    }
+
 }
