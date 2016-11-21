@@ -18,15 +18,15 @@ public class CartesianCoordinateTest
         assertEquals(30, c.getZ(), 1.0e-6);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void wrongCoordinateTest()
+    @Test
+    public void otherFormatCoordinateTest()
     {
         SphericCoordinate sc = new SphericCoordinate(10,20,30);
         CartesianCoordinate c = new CartesianCoordinate(20, 30, 40);
         c.getDistance(sc);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void otherNullTest()
     {
         CartesianCoordinate c = new CartesianCoordinate(30, 40, 50);

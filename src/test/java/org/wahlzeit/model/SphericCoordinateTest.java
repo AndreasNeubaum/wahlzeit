@@ -85,7 +85,7 @@ public class SphericCoordinateTest
 		Assert.assertEquals(0, distance2, 1.0e-10);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	public void testOneNull()
 	{
 		Coordinate c1 = new SphericCoordinate(0, 0);
@@ -188,10 +188,19 @@ public class SphericCoordinateTest
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void wrongCoordinateTest()
+	public void otherFormatCoordinateTestDifferentRadius()
 	{
 		SphericCoordinate sc = new SphericCoordinate(10,20,30);
 		CartesianCoordinate c = new CartesianCoordinate(20, 30, 40);
+		sc.getDistance(c);
+	}
+
+	@Test
+	public void otherFormatCoordinateTestSameRadius()
+	{
+		//pythagoräisches quadrupel: 2*2+3*3+6*6=7*7
+		SphericCoordinate sc = new SphericCoordinate(10,20,7);//r=7
+		CartesianCoordinate c = new CartesianCoordinate(2, 3, 6);
 		sc.getDistance(c);
 	}
 
