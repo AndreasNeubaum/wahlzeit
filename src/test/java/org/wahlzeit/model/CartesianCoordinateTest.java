@@ -26,7 +26,7 @@ public class CartesianCoordinateTest
         c.getDistance(sc);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void otherNullTest()
     {
         CartesianCoordinate c = new CartesianCoordinate(30, 40, 50);

@@ -94,7 +94,7 @@ public class LocationTest
 	@Test
 	public void testTwoQuadrants1()
 	{
-		Location c1 = new Location(new SphericCoordinate(330, 0));
+		Location c1 = new Location(new SphericCoordinate(-30, 0));
 		Location c2 = new Location(new SphericCoordinate(30, 0));
 
 		double distance1 = c1.getDistance(c2);
@@ -107,7 +107,7 @@ public class LocationTest
 	@Test
 	public void testTwoQuadrants2()
 	{
-		Location c1 = new Location(new SphericCoordinate(720, 0));
+		Location c1 = new Location(new SphericCoordinate(0, 0));
 		Location c2 = new Location(new SphericCoordinate(30, 0));
 
 		double distance1 = c1.getDistance(c2);
@@ -120,7 +120,7 @@ public class LocationTest
 	@Test
 	public void testTwoQuadrants3()
 	{
-		Location c1 = new Location(new SphericCoordinate(690, 0));
+		Location c1 = new Location(new SphericCoordinate(-30, 0));
 		Location c2 = new Location(new SphericCoordinate(30, 0));
 
 		double distance1 = c1.getDistance(c2);
@@ -133,8 +133,8 @@ public class LocationTest
 	@Test
 	public void testTwoQuadrants4()
 	{
-		Location c1 = new Location(new SphericCoordinate(330, 30));
-		Location c2 = new Location(new SphericCoordinate(690, 30));
+		Location c1 = new Location(new SphericCoordinate(-30, 30));
+		Location c2 = new Location(new SphericCoordinate(-30, 30));
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);

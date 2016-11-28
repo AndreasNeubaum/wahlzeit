@@ -42,7 +42,7 @@ public class AbstractCoordinateTest
     @Test
     public void equalsOtherFormatTest4()
     {
-        SphericCoordinate sc = new SphericCoordinate(31.002719133874, 236.30993247402, 7);
+        SphericCoordinate sc = new SphericCoordinate(31.002719133874, -123.690067526, 7);
         CartesianCoordinate cc = new CartesianCoordinate(-2, -3, 6);
 
         assertTrue(cc.isEqual(sc));
@@ -52,7 +52,7 @@ public class AbstractCoordinateTest
     @Test
     public void equalsOtherFormatTest5()
     {
-        SphericCoordinate sc = new SphericCoordinate(31.002719133874, 326.30993247402, 7);
+        SphericCoordinate sc = new SphericCoordinate(31.002719133874, -33.690067526, 7);
         CartesianCoordinate cc = new CartesianCoordinate(3, -2, 6);
 
         assertTrue(cc.isEqual(sc));
@@ -62,7 +62,7 @@ public class AbstractCoordinateTest
     @Test
     public void getDistanceDifferentFormatsTest()
     {
-        SphericCoordinate sc = new SphericCoordinate(31.002719133874, 326.30993247402, 7);
+        SphericCoordinate sc = new SphericCoordinate(31.002719133874, -33.690067526, 7);
         CartesianCoordinate cc = new CartesianCoordinate(3, -2, 6);
 
         assertTrue(sc.getDistance(cc) < 0.001);

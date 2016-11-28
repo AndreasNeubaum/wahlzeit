@@ -85,7 +85,7 @@ public class SphericCoordinateTest
 		Assert.assertEquals(0, distance2, 1.0e-10);
 	}
 
-	@Test(expected = NullPointerException.class)
+	@Test(expected = AssertionError.class)
 	public void testOneNull()
 	{
 		Coordinate c1 = new SphericCoordinate(0, 0);
@@ -96,7 +96,7 @@ public class SphericCoordinateTest
 	@Test
 	public void testTwoQuadrants1()
 	{
-		Coordinate c1 = new SphericCoordinate(330, 0);
+		Coordinate c1 = new SphericCoordinate(-30, 0);
 		Coordinate c2 = new SphericCoordinate(30, 0);
 
 		double distance1 = c1.getDistance(c2);
@@ -109,7 +109,7 @@ public class SphericCoordinateTest
 	@Test
 	public void testTwoQuadrants2()
 	{
-		Coordinate c1 = new SphericCoordinate(720, 0);
+		Coordinate c1 = new SphericCoordinate(0, 0);
 		Coordinate c2 = new SphericCoordinate(30, 0);
 
 		double distance1 = c1.getDistance(c2);
@@ -120,23 +120,10 @@ public class SphericCoordinateTest
 	}
 
 	@Test
-	public void testTwoQuadrants3()
-	{
-		Coordinate c1 = new SphericCoordinate(690, 0);
-		Coordinate c2 = new SphericCoordinate(30, 0);
-
-		double distance1 = c1.getDistance(c2);
-		double distance2 = c2.getDistance(c1);
-
-		Assert.assertEquals(6671.695599, distance1, 1.0e-6);//6371*(pi/3)
-		Assert.assertEquals(6671.695599, distance2, 1.0e-6);
-	}
-
-	@Test
 	public void testTwoQuadrants4()
 	{
-		Coordinate c1 = new SphericCoordinate(330, 30);
-		Coordinate c2 = new SphericCoordinate(690, 30);
+		Coordinate c1 = new SphericCoordinate(-30, 30);
+		Coordinate c2 = new SphericCoordinate(-30, 30);
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -187,7 +174,7 @@ public class SphericCoordinateTest
 		Assert.assertEquals(123, c.getRadius(), 1.0e-6);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = AssertionError.class)
 	public void otherFormatCoordinateTestDifferentRadius()
 	{
 		SphericCoordinate sc = new SphericCoordinate(10,20,30);
