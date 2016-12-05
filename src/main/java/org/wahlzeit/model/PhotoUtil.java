@@ -40,6 +40,10 @@ public class PhotoUtil {
 	 * @methodtype creation
 	 */
 	public static Photo createPhoto(String filename, PhotoId id, Image uploadedImage) throws Exception {
+
+		if(filename == null)
+			throw new IllegalArgumentException("filename must not be null");
+
 		Photo result = PhotoFactory.getInstance().createPhoto(id);
 		result.setEnding(filename.substring(filename.lastIndexOf(".") + 1));
 
@@ -47,6 +51,7 @@ public class PhotoUtil {
 
 		int sourceWidth = uploadedImage.getWidth();
 		int sourceHeight = uploadedImage.getHeight();
+		//dimensions cannot be <0, must be asserted in Image class invariant
 		result.setWidthAndHeight(sourceWidth, sourceHeight);
 
 		return result;
@@ -64,7 +69,7 @@ public class PhotoUtil {
 
 		for (PhotoSize size : PhotoSize.values()) {
 			if (!size.isWiderAndHigher(sourceWidth, sourceHeight)) {
-				scaleImage(ImagesServiceFactory.makeImage(source.getImageData()), size, photo);
+				scaleImage(ImagesServiceFactory.makeImage(source.getImageData()), size, photo);//not null (assorted on top)
 			}
 		}
 	}
@@ -100,7 +105,7 @@ public class PhotoUtil {
 
 		ImagesService imagesService = ImagesServiceFactory.getImagesService();
 		Transform resize = ImagesServiceFactory.makeResize(targetWidth, targetHeight);
-		Image newImage = imagesService.applyTransform(resize, source);
+		Image newImage = imagesService.applyTransform(resize, source);//image cannot be null here: caught in getters width/height on top
 
 		photo.setImage(size, newImage);
 

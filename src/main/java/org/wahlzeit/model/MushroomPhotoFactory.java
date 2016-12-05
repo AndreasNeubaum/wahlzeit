@@ -7,7 +7,7 @@ public class MushroomPhotoFactory extends PhotoFactory
 {
     static
     {
-        setInstance(new MushroomPhotoFactory());
+        setInstance(new MushroomPhotoFactory());//cannot happen twice - static blocks are run excactly once when class is loaded
     }
 
     protected MushroomPhotoFactory()

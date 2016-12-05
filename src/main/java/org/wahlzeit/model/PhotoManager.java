@@ -203,7 +203,7 @@ public class PhotoManager extends ObjectManager {
 				try {
 					Serializable rawImage = imageStorage.readImage(photoIdAsString, photoSize.asInt());
 					if (rawImage != null && rawImage instanceof Image) {
-						photo.setImage(photoSize, (Image) rawImage);
+						photo.setImage(photoSize, (Image) rawImage);//no exception handling, rawImage != null (see if)
 					}
 				} catch (IOException e) {
 					log.warning(LogBuilder.createSystemMessage().
@@ -338,8 +338,9 @@ public class PhotoManager extends ObjectManager {
 	 */
 	public Photo createPhoto(String filename, Image uploadedImage) throws Exception {
 		PhotoId id = PhotoId.getNextId();
+		//no exception check needed beyond: id is internally generated and in PhotoId guaranteed to be valid
 		Photo result = PhotoUtil.createPhoto(filename, id, uploadedImage);
-		addPhoto(result);
+		addPhoto(result);//internally generated id, cannot be same twice
 		return result;
 	}
 
@@ -348,7 +349,7 @@ public class PhotoManager extends ObjectManager {
 	 */
 	public void addPhoto(Photo photo) throws IOException {
 		PhotoId id = photo.getId();
-		assertIsNewPhoto(id);
+		assertIsNewPhoto(id);//internally generated id, cannot be same twice
 		doAddPhoto(photo);
 
 		GlobalsManager.getInstance().saveGlobals();
