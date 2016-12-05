@@ -30,15 +30,24 @@ public class Location
 
     public Location(Coordinate coordinate)
     {
+        if(coordinate == null)
+        {
+            throw new IllegalArgumentException("coordinate must not be null");
+        }
+
         this.coordinate = AbstractCoordinate.toSpheric(coordinate);
     }
 
+    //preconditions: coordinate and other.coordinate must not be null
     public double getDistance(Location other)
     {
-        if(other == null || other.coordinate == null || coordinate == null)
+        if(other == null)
         {
-            throw new NullPointerException("One location or coordinate was null");
+            throw new IllegalArgumentException("other was null");
         }
+
+        assert other.coordinate != null : "precondition: other.coordinate must not be null";
+        assert coordinate != null : "precondition: coordinate must not be null";
 
         return coordinate.getDistance(other.coordinate);
     }

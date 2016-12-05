@@ -137,6 +137,7 @@ public class SphericCoordinate extends AbstractCoordinate
     @Override
     public double getDistance(Coordinate other)
     {
+        //keine Modulgrenze, nur interne Nutzung --> keine exception werfen, precondition stattdessen
         assert other != null : "precondition: other must not be null";
         assertClassInvariants();
 

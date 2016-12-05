@@ -18,7 +18,10 @@ public abstract class AbstractCoordinate implements Coordinate
     public boolean isEqual(Coordinate other)
     {
         //pre-, postconditions werden in der abstrakten Klasse gecheckt
-        assert other != null : "precondition: other must not be null";
+
+        if(other == null)
+            return false;
+
         assertClassInvariants();
 
         double dist = getDistance(other);
@@ -34,7 +37,8 @@ public abstract class AbstractCoordinate implements Coordinate
     //postconditions. radius >= 0, -180<=longitude<=180, -90<=latitiude<=90
     public static SphericCoordinate toSpheric(Coordinate coord)
     {
-        assert coord != null : "precondition: argument coord must not be null";
+        if(coord == null)
+            return  null;//casting null would also return null
 
         if(coord instanceof SphericCoordinate)
         {
@@ -62,7 +66,8 @@ public abstract class AbstractCoordinate implements Coordinate
     //postcondition: |x|,|y|,|z| <= r
     public static CartesianCoordinate toCartesian(Coordinate coord)
     {
-        assert coord != null : "precondition: argument coord must not be null";
+        if(coord == null)
+            return null;//casting null would also return null
 
         if(coord instanceof CartesianCoordinate)
         {

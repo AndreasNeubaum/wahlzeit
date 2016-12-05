@@ -58,6 +58,8 @@ public class PhotoFactory {
 			setInstance(new PhotoFactory());
 		}
 
+		assert instance != null : "post condition: instance must not be null";
+
 		return instance;
 	}
 

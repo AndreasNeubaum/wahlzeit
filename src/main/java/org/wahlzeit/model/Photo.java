@@ -23,6 +23,7 @@ package org.wahlzeit.model;
 import com.google.api.client.util.ArrayMap;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.images.Image;
+import com.google.apphosting.api.ApiProxy;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
@@ -133,77 +134,115 @@ public class Photo extends DataObject {
 
 	public Location location;
 
+
+	protected void assertClassInvariants()
+	{
+		assert id != null : "class invariant: Photo does not have an id";
+	}
+
 	/**
 	 *
 	 */
-	public Photo() {
+	public Photo()
+	{
 		id = PhotoId.getNextId();
 		incWriteCount();
+
+		assertClassInvariants();
 	}
 
 	/**
 	 * @methodtype constructor
 	 */
-	public Photo(PhotoId myId) {
-		id = myId;
+	public Photo(PhotoId myId)
+	{
+		if(myId == null)
+			throw new IllegalArgumentException("myId must not be null");
 
+		id = myId;
 		incWriteCount();
+
+		assertClassInvariants();
 	}
 
 	/**
 	 * @methodtype get
 	 */
-	public Image getImage(PhotoSize photoSize) {
+	public Image getImage(PhotoSize photoSize)
+	{
+		assertClassInvariants();
 		return images.get(photoSize);
 	}
 
 	/**
 	 * @methodtype set
 	 */
-	public void setImage(PhotoSize photoSize, Image image) {
+	public void setImage(PhotoSize photoSize, Image image)
+	{
+		if(image == null)
+			throw new IllegalArgumentException("image mut not be null");
+
+		assertClassInvariants();
 		this.images.put(photoSize, image);
+		assertClassInvariants();
 	}
 
 	/**
 	 * @methodtype get
 	 */
-	public String getIdAsString() {
+	public String getIdAsString()
+	{
+		assertClassInvariants();
 		return id.asString();
 	}
 
 	/**
 	 * @methodtype get
 	 */
-	public PhotoId getId() {
+	public PhotoId getId()
+	{
+		assertClassInvariants();
 		return id;
 	}
 
 	/**
 	 * @methodtype get
 	 */
-	public String getOwnerId() {
+	public String getOwnerId()
+	{
+		assertClassInvariants();
 		return ownerId;
 	}
 
 	/**
 	 * @methodtype set
 	 */
-	public void setOwnerId(String newName) {
+	public void setOwnerId(String newName)
+	{
+		assertClassInvariants();
+
 		ownerId = newName;
 		incWriteCount();
+
+		assertClassInvariants();
 	}
 
 	/**
 	 * @methodtype get
 	 */
-	public String getSummary(ModelConfig cfg) {
+	public String getSummary(ModelConfig cfg)
+	{
+		assertClassInvariants();
 		return cfg.asPhotoSummary(ownerId);
 	}
 
 	/**
 	 * @methodtype get
 	 */
-	public String getCaption(ModelConfig cfg) {
+	public String getCaption(ModelConfig cfg)
+	{
+		assertClassInvariants();
+
 		String ownerName = UserManager.getInstance().getUserById(ownerId).getNickName();
 		return cfg.asPhotoCaption(ownerName);
 	}
@@ -211,53 +250,76 @@ public class Photo extends DataObject {
 	/**
 	 * @methodtype get
 	 */
-	public boolean getOwnerNotifyAboutPraise() {
+	public boolean getOwnerNotifyAboutPraise()
+	{
+		assertClassInvariants();
 		return ownerNotifyAboutPraise;
 	}
 
 	/**
 	 * @methodtype set
 	 */
-	public void setOwnerNotifyAboutPraise(boolean newNotifyAboutPraise) {
+	public void setOwnerNotifyAboutPraise(boolean newNotifyAboutPraise)
+	{
+		assertClassInvariants();
+
 		ownerNotifyAboutPraise = newNotifyAboutPraise;
 		incWriteCount();
+
+		assertClassInvariants();
 	}
 
 	/**
 	 *
 	 */
-	public Language getOwnerLanguage() {
+	public Language getOwnerLanguage()
+	{
+		assertClassInvariants();
 		return ownerLanguage;
 	}
 
 	/**
 	 *
 	 */
-	public void setOwnerLanguage(Language newLanguage) {
+	public void setOwnerLanguage(Language newLanguage)
+	{
+		assertClassInvariants();
+
 		ownerLanguage = newLanguage;
 		incWriteCount();
+
+		assertClassInvariants();
 	}
 
 	/**
 	 * @methodtype boolean-query
 	 */
-	public boolean hasSameOwner(Photo photo) {
-		return photo.getOwnerEmailAddress().equals(ownerEmailAddress);
+	public boolean hasSameOwner(Photo photo)
+	{
+		assertClassInvariants();
+		return photo != null && photo.getOwnerEmailAddress().equals(ownerEmailAddress);
 	}
 
 	/**
 	 * @methodtype get
 	 */
-	public EmailAddress getOwnerEmailAddress() {
+	public EmailAddress getOwnerEmailAddress()
+	{
+		assertClassInvariants();
 		return ownerEmailAddress;
 	}
 
 	/**
 	 * @methodtype set
 	 */
-	public void setOwnerEmailAddress(EmailAddress newEmailAddress) {
+	public void setOwnerEmailAddress(EmailAddress newEmailAddress)
+	{
+		assertClassInvariants();
+
 		ownerEmailAddress = newEmailAddress;
 		incWriteCount();
+
+		assertClassInvariants();
 	}
 
 	/**
@@ -298,13 +360,23 @@ public class Photo extends DataObject {
 	/**
 	 * @methodtype set
 	 */
-	public void setWidthAndHeight(int newWidth, int newHeight) {
+	public void setWidthAndHeight(int newWidth, int newHeight)
+	{
+		if(newWidth <= 0 || newHeight <= 0)
+		{
+			throw new IllegalArgumentException("new width or height is <=0");
+		}
+
+		assertClassInvariants();
+
 		width = newWidth;
 		height = newHeight;
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 
 		incWriteCount();
+
+		assertClassInvariants();
 	}
 
 	/**
@@ -340,10 +412,15 @@ public class Photo extends DataObject {
 	/**
 	 *
 	 */
-	public void addToPraise(int value) {
+	public void addToPraise(int value)
+	{
+		assertClassInvariants();
+
 		praiseSum += value;
 		noVotes += 1;
 		incWriteCount();
+
+		assertClassInvariants();
 	}
 
 	/**
@@ -363,9 +440,14 @@ public class Photo extends DataObject {
 	/**
 	 * @methodtype set
 	 */
-	public void setStatus(PhotoStatus newStatus) {
+	public void setStatus(PhotoStatus newStatus)
+	{
+		assertClassInvariants();
+
 		status = newStatus;
 		incWriteCount();
+
+		assertClassInvariants();
 	}
 
 	/**
@@ -385,9 +467,14 @@ public class Photo extends DataObject {
 	/**
 	 * @methodtype set
 	 */
-	public void setTags(Tags newTags) {
+	public void setTags(Tags newTags)
+	{
+		assertClassInvariants();
+
 		tags = newTags;
 		incWriteCount();
+
+		assertClassInvariants();
 	}
 
 	/**
@@ -416,8 +503,13 @@ public class Photo extends DataObject {
 	/**
 	 * @methodtype set
 	 */
-	public void setNoNewPraise() {
+	public void setNoNewPraise()
+	{
+		assertClassInvariants();
+
 		noVotesAtLastNotification = noVotes;
 		incWriteCount();
+
+		assertClassInvariants();
 	}
 }

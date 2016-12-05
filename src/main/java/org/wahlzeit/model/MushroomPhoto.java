@@ -24,6 +24,8 @@ public class MushroomPhoto extends Photo
         medicalUse = false;
         geniessbarkeit = Geniessbarkeit.ToedlichGiftig;
         vorkommen = EnumSet.noneOf(Vorkommen.class);
+
+        assertClassInvariants();
     }
 
     public MushroomPhoto(PhotoId photoId)
@@ -33,6 +35,8 @@ public class MushroomPhoto extends Photo
         medicalUse = false;
         geniessbarkeit = Geniessbarkeit.ToedlichGiftig;
         vorkommen = EnumSet.noneOf(Vorkommen.class);
+
+        assertClassInvariants();
     }
 
     public MushroomPhoto(PhotoId photoId, boolean psychoactive, boolean medicalUse, Geniessbarkeit geniessbarkeit, EnumSet<Vorkommen> vorkommen)
@@ -42,6 +46,8 @@ public class MushroomPhoto extends Photo
         this.medicalUse = medicalUse;
         this.geniessbarkeit = geniessbarkeit;
         this.vorkommen = vorkommen;
+
+        assertClassInvariants();
     }
 
     public boolean getPsychoactive()
@@ -51,7 +57,9 @@ public class MushroomPhoto extends Photo
 
     public void setPsychoactive(boolean psychoactive)
     {
+        assertClassInvariants();
         this.psychoactive = psychoactive;
+        assertClassInvariants();
     }
 
     public boolean getMedicalUse()
@@ -61,7 +69,9 @@ public class MushroomPhoto extends Photo
 
     public void setMedicalUse(boolean medicalUse)
     {
+        assertClassInvariants();
         this.medicalUse = medicalUse;
+        assertClassInvariants();
     }
 
     public Geniessbarkeit getGeniessbarkeit()
@@ -71,7 +81,9 @@ public class MushroomPhoto extends Photo
 
     public void setGeniessbarkeit(Geniessbarkeit geniessbarkeit)
     {
+        assertClassInvariants();
         this.geniessbarkeit = geniessbarkeit;
+        assertClassInvariants();
     }
 
     public EnumSet<Vorkommen> getVorkommen()
@@ -81,6 +93,8 @@ public class MushroomPhoto extends Photo
 
     public void setVorkommen(EnumSet<Vorkommen> vorkommen)
     {
+        assertClassInvariants();
         this.vorkommen = vorkommen;
+        assertClassInvariants();
     }
 }
