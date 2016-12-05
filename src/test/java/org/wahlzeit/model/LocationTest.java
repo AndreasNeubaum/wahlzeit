@@ -83,7 +83,7 @@ public class LocationTest
 		Assert.assertEquals(0, distance2, 1.0e-10);
 	}
 
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testOneNull()
 	{
 		Location c1 = new Location(new SphericCoordinate(0, 0));
