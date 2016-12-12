@@ -22,11 +22,15 @@ package org.wahlzeit.model;
 
 //--> Klasseninvariante: x==x, y==y, z==z, x!=
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class CartesianCoordinate extends AbstractCoordinate
 {
     private double x;
     private double y;
     private double z;
+    private static final HashMap<Integer, ArrayList<CartesianCoordinate>> instances = new HashMap<Integer, ArrayList<CartesianCoordinate>>(50);
 
     @Override
     protected void assertClassInvariants()
@@ -47,7 +51,7 @@ public class CartesianCoordinate extends AbstractCoordinate
         assert z != Double.POSITIVE_INFINITY : "z must not be positive infinity";
     }
 
-    public CartesianCoordinate(double x, double y, double z)
+    private CartesianCoordinate(double x, double y, double z)
     {
         //precondition entfällt (siehe Klasseninvariante), Zuweiseung wird wohl klappen wenn nicht ist mehr kaputt...
         this.x = x;
@@ -55,6 +59,46 @@ public class CartesianCoordinate extends AbstractCoordinate
         this.z = z;
 
         assertClassInvariants();
+    }
+
+    public static synchronized CartesianCoordinate getCoordinate(double x, double y, double z)
+    {
+        int hash = hashCode(x, y, z);
+        ArrayList<CartesianCoordinate> list = instances.get(hash);
+
+        if(list != null)
+        {
+            for(int i = 0; i < list.size(); i++)
+            {
+                CartesianCoordinate coord = list.get(i);
+
+                if(coord.x == x && coord.y == y && coord.z == z)
+                    return coord;
+            }
+        }
+        else
+        {
+            list = new ArrayList<CartesianCoordinate>();
+            instances.put(hash, list);
+        }
+
+        CartesianCoordinate coord = new CartesianCoordinate(x, y, z);
+
+        list.add(coord);
+        return coord;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        double hash = ((x * 1033 + y) * 1051 + z) * 1013;
+        return (int) hash;
+    }
+
+    private static int hashCode(double x, double y, double z)
+    {
+        double hash = ((x * 1033 + y) * 1051 + z) * 1013;
+        return (int) hash;
     }
 
     public double getX()

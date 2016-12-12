@@ -19,6 +19,9 @@ package org.wahlzeit.model;
  * each compares equal only to itself, and each compares unequal to all other values."
 * */
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 //Klaseninvariante: r>=0, -180<=longitude<=180, -90<=latitude<=90, longitude==longitude, latitude==latitude, radius==radius
 public class SphericCoordinate extends AbstractCoordinate
 {
@@ -26,6 +29,7 @@ public class SphericCoordinate extends AbstractCoordinate
     private double longitude;
     private double radius;
     public static final double EarthRadius = 6371;
+    private static final HashMap<Integer, ArrayList<SphericCoordinate>> instances = new HashMap<Integer, ArrayList<SphericCoordinate>>(50);
 
     @Override
     protected void assertClassInvariants()
@@ -40,7 +44,7 @@ public class SphericCoordinate extends AbstractCoordinate
     }
 
     //precondition: r>=0, -180<=longitude<=180, -90<=latitude<=90
-    public SphericCoordinate(double latitude, double longitude, double radius)
+    private SphericCoordinate(double latitude, double longitude, double radius)
     {
         assert radius >= 0 : "class invariant: radius >= 0";
         assert -180 <= longitude && longitude <= 180 : "class invariant: -180<=longitude<=180";
@@ -55,7 +59,7 @@ public class SphericCoordinate extends AbstractCoordinate
     }
 
     //precondition: -180<=longitude<=180, -90<=latitude<=90
-    public SphericCoordinate(double latitude, double longitude)
+    private SphericCoordinate(double latitude, double longitude)
     {
         assert -180 <= longitude && longitude <= 180 : "class invariant: -180<=longitude<=180";
         assert -90 <=latitude && latitude <= 90 : "class invariant: -90<=latitude<=90";
@@ -66,6 +70,51 @@ public class SphericCoordinate extends AbstractCoordinate
 
         //postconditions = preconditions + class invariants -> hier sinnlos
         assertClassInvariants();
+    }
+
+    @Override
+    public int hashCode()
+    {
+        double hash = ((latitude * 1033 + longitude) * 1051 + radius) * 1013;
+        return (int) hash;
+    }
+
+    private static int hashCode(double latitude, double longitude, double radius)
+    {
+        double hash = ((latitude * 1033 + longitude) * 1051 + radius) * 1013;
+        return (int) hash;
+    }
+
+    public static SphericCoordinate getCoordinate(double latitude, double longitude)
+    {
+        return getCoordinate(latitude, longitude, EarthRadius);
+    }
+
+    public static synchronized SphericCoordinate getCoordinate(double latitude, double longitude, double radius)
+    {
+        int hash = hashCode(latitude, longitude, radius);
+        ArrayList<SphericCoordinate> list = instances.get(hash);
+
+        if(list != null)
+        {
+            for(int i = 0; i < list.size(); i++)
+            {
+                SphericCoordinate coord = list.get(i);
+
+                if(coord.latitude == latitude && coord.longitude == longitude && coord.radius == radius)
+                    return coord;
+            }
+        }
+        else
+        {
+            list = new ArrayList<SphericCoordinate>();
+            instances.put(hash, list);
+        }
+
+        SphericCoordinate coord = new SphericCoordinate(latitude, longitude, radius);
+
+        list.add(coord);
+        return coord;
     }
 
     public double getLatitude()

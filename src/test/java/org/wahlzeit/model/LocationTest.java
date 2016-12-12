@@ -34,8 +34,8 @@ public class LocationTest
 	@Test
 	public void testZeroDistance()
 	{
-		Location c1 = new Location(new SphericCoordinate(20, 7));
-		Location c2 = new Location(new SphericCoordinate(20, 7));
+		Location c1 = new Location(SphericCoordinate.getCoordinate(20, 7));
+		Location c2 = new Location(SphericCoordinate.getCoordinate(20, 7));
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -47,8 +47,8 @@ public class LocationTest
 	@Test
 	public void testZeroLongitude()
 	{
-		Location c1 = new Location(new SphericCoordinate(30, 0));
-		Location c2 = new Location(new SphericCoordinate(60, 0));
+		Location c1 = new Location(SphericCoordinate.getCoordinate(30, 0));
+		Location c2 = new Location(SphericCoordinate.getCoordinate(60, 0));
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -60,8 +60,8 @@ public class LocationTest
 	@Test
 	public void testZeroLatitude()
 	{
-		Location c1 = new Location(new SphericCoordinate(0, 30));
-		Location c2 = new Location(new SphericCoordinate(0, 60));
+		Location c1 = new Location(SphericCoordinate.getCoordinate(0, 30));
+		Location c2 = new Location(SphericCoordinate.getCoordinate(0, 60));
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -73,8 +73,8 @@ public class LocationTest
 	@Test
 	public void testBothZero()
 	{
-		Location c1 = new Location(new SphericCoordinate(0, 0));
-		Location c2 = new Location(new SphericCoordinate(0, 0));
+		Location c1 = new Location(SphericCoordinate.getCoordinate(0, 0));
+		Location c2 = new Location(SphericCoordinate.getCoordinate(0, 0));
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -86,7 +86,7 @@ public class LocationTest
 	@Test(expected = IllegalArgumentException.class)
 	public void testOneNull()
 	{
-		Location c1 = new Location(new SphericCoordinate(0, 0));
+		Location c1 = new Location(SphericCoordinate.getCoordinate(0, 0));
 
 		double distance1 = c1.getDistance(null);
 	}
@@ -94,8 +94,8 @@ public class LocationTest
 	@Test
 	public void testTwoQuadrants1()
 	{
-		Location c1 = new Location(new SphericCoordinate(-30, 0));
-		Location c2 = new Location(new SphericCoordinate(30, 0));
+		Location c1 = new Location(SphericCoordinate.getCoordinate(-30, 0));
+		Location c2 = new Location(SphericCoordinate.getCoordinate(30, 0));
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -107,8 +107,8 @@ public class LocationTest
 	@Test
 	public void testTwoQuadrants2()
 	{
-		Location c1 = new Location(new SphericCoordinate(0, 0));
-		Location c2 = new Location(new SphericCoordinate(30, 0));
+		Location c1 = new Location(SphericCoordinate.getCoordinate(0, 0));
+		Location c2 = new Location(SphericCoordinate.getCoordinate(30, 0));
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -120,8 +120,8 @@ public class LocationTest
 	@Test
 	public void testTwoQuadrants3()
 	{
-		Location c1 = new Location(new SphericCoordinate(-30, 0));
-		Location c2 = new Location(new SphericCoordinate(30, 0));
+		Location c1 = new Location(SphericCoordinate.getCoordinate(-30, 0));
+		Location c2 = new Location(SphericCoordinate.getCoordinate(30, 0));
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -133,8 +133,8 @@ public class LocationTest
 	@Test
 	public void testTwoQuadrants4()
 	{
-		Location c1 = new Location(new SphericCoordinate(-30, 30));
-		Location c2 = new Location(new SphericCoordinate(-30, 30));
+		Location c1 = new Location(SphericCoordinate.getCoordinate(-30, 30));
+		Location c2 = new Location(SphericCoordinate.getCoordinate(-30, 30));
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -146,8 +146,8 @@ public class LocationTest
 	@Test
 	public void testPrime1()
 	{
-		Location c1 = new Location(new SphericCoordinate(7, 23));
-		Location c2 = new Location(new SphericCoordinate(47, 59));
+		Location c1 = new Location(SphericCoordinate.getCoordinate(7, 23));
+		Location c2 = new Location(SphericCoordinate.getCoordinate(47, 59));
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -159,8 +159,8 @@ public class LocationTest
 	@Test
 	public void testPrime2()
 	{
-		Location c1 = new Location(new SphericCoordinate(61, 7));
-		Location c2 = new Location(new SphericCoordinate(23, 41));
+		Location c1 = new Location(SphericCoordinate.getCoordinate(61, 7));
+		Location c2 = new Location(SphericCoordinate.getCoordinate(23, 41));
 
 		double distance1 = c1.getDistance(c2);
 		double distance2 = c2.getDistance(c1);
@@ -172,7 +172,7 @@ public class LocationTest
 	@Test
 	public void testKonstruktor()
 	{
-		Location c = new Location(new SphericCoordinate(47, 11));
+		Location c = new Location(SphericCoordinate.getCoordinate(47, 11));
 		Assert.assertEquals(47, ((SphericCoordinate)c.coordinate).getLatitude(), 1.0e-6);
 		Assert.assertEquals(11, ((SphericCoordinate)c.coordinate).getLongitude(), 1.0e-6);
 	}

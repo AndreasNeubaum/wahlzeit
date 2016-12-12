@@ -59,7 +59,7 @@ public abstract class AbstractCoordinate implements Coordinate
         assert -180 <= longitude && longitude <= 180 : "postcondition: longitude must be between -180 and 180";
         assert -90 <= latitude && latitude <= 90 : "postcondition: latitiude must be between -90 and 90";
 
-        return new SphericCoordinate(latitude, longitude, radius);
+        return SphericCoordinate.getCoordinate(latitude, longitude, radius);
     }
 
     //Preconditions: coord not null
@@ -88,7 +88,7 @@ public abstract class AbstractCoordinate implements Coordinate
         assert Math.abs(y) <= r : "postcondition: |y| must be <= r";
         assert Math.abs(z) <= r : "postcondition: |z| must be <= r";
 
-        return new CartesianCoordinate(x, y, z);
+        return CartesianCoordinate.getCoordinate(x, y, z);
     }
 
 
