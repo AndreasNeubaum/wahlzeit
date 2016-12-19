@@ -25,6 +25,12 @@ import org.wahlzeit.model.UserSession;
 import org.wahlzeit.webparts.WebPart;
 
 
+/*@PatternInstance(
+		patternName = “Null Object”
+		participants = {“NullFormHandler”, "AbstractWebFormHandler", Verwender: “ServiceMain”},
+		purpose: im Verwender-Code nicht immer auf null prüfen, einheitliche BEhandlung aller Objekte --> spart ifs
+)*/
+
 /**
  * A handler class for a null web form.
  */

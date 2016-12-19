@@ -43,6 +43,13 @@ import java.util.logging.Logger;
 /**
  * A photo manager provides access to and manages photos.
  */
+
+/*@PatternInstance(
+		patternName = “Singleton”
+		participants = {“PhotoManager”, evtl. alle Verwender (>10)},
+		purpose = sicherstellen dass nur eine Instanz der Klasse exostiert und auf dieser alle Methodenaufrufe stattfinden
+)*/
+
 public class PhotoManager extends ObjectManager {
 
 	/**
@@ -65,7 +72,8 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 *
 	 */
-	public PhotoManager() {
+	//bugfix: changed to protected to implement singleton properly, was public -.-
+	protected PhotoManager() {
 		photoTagCollector = PhotoFactory.getInstance().createPhotoTagCollector();
 	}
 

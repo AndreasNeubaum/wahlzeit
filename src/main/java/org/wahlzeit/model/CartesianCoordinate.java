@@ -22,6 +22,15 @@ package org.wahlzeit.model;
 
 //--> Klasseninvariante: x==x, y==y, z==z, x!=
 
+/*
+@PatternInstance(
+  patternName = “Value Object”
+  participants = {“CartesianCoordinate", "AbstractCoordinate", evtl. weitere Verwender},
+  purpose = use pooled, shared, immutable objects to reduce used memory and possibly increase performance (slow object creation etc.)
+            especially if the same object is used multiple times
+)
+* */
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

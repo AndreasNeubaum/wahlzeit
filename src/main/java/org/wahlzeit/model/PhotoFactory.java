@@ -27,6 +27,24 @@ import java.util.logging.Logger;
 /**
  * An Abstract Factory for creating photos and related objects.
  */
+
+/**
+ * @PatternInstance(
+patternName = “Factory”,
+participants = { Factory: “PhotoFactory",
+				Products: "Photo", "PhotoFilter", "PhotoTagCollector",
+				Clients: "Photo": PhtotoUtil", "Photo Manager",
+						  "Photo Filter": "User Session",
+						  "Phtoto Tag Collector" : Photo Manager"},
+purpose in context:
+	a) konkrete Objekte müssen nicht referenziert werden, stattdessen kann sich der client ausschliesslich auf ein interface stützen
+		(hier nicht erfüllt, Photo ist kein Interface...)
+	b) evtl. komplizierte Objekterzeugung kapseln - hier auch nicht erfüllt (einfacher Konstruktor-Aufruf)
+	c) Methode loadPhoto() gehört nicht in eine Factory, sondern zur Persistenzschicht...
+)
+ */
+
+
 public class PhotoFactory {
 
 	private static final Logger log = Logger.getLogger(PhotoFactory.class.getName());

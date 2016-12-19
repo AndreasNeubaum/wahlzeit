@@ -47,6 +47,13 @@ import java.util.logging.Logger;
  * 
  * @review
  */
+
+/*@PatternInstance(
+		patternName = “Fassade”
+		participants = {“GcsAdapter”, gekapselte APIs: ImageStorage},
+		purpose = Zu sehr komplexem Interface deutlich einfacheres dazu bereitstellen was für 95% der Anwendungsfälle reicht und die Verwendung deutlich vereinfacht
+)*/
+
 public class GcsAdapter extends ImageStorage {
 
 	private static final Logger log = Logger.getLogger(GcsAdapter.class.getName());
@@ -152,6 +159,14 @@ public class GcsAdapter extends ImageStorage {
 	}
 
 
+	/*
+	@PatternInstance(
+  patternName = “Builder”
+  participants = {“Builder”, “GcsAdapter”},
+  purpose = komplexe Pbjekterzeugung in einzelne Klasse kapseln (v.a. wenn nicht alle Parameterkombinationen erlaubt sind mit checks),
+  			und komfortables Zusammenbauen (new X().withA().withB()...) ermöglichen (hier nicht der Fall)
+)
+	* */
 	public static class Builder {
 		GcsService gcsService;
 		private String bucketName;
