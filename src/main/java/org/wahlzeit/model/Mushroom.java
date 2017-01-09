@@ -1,17 +1,23 @@
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Subclass;
+
 import java.util.EnumSet;
 
 /**
  * Created by andreas on 09.01.17.
  */
+
+@Subclass
 public class Mushroom
 {
-    private MushroomType type;
-    private String name;
-    private boolean psychoactive;
-    private boolean medicalUse;
-    private EnumSet<Vorkommen> vorkommen;
+    @Ignore private MushroomType type;
+    @Ignore private String name;
+    @Ignore private boolean psychoactive;
+    @Ignore private boolean medicalUse;
+    @Ignore private EnumSet<Vorkommen> vorkommen;
 
 
     public Mushroom(MushroomType type)

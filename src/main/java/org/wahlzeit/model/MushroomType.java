@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Subclass;
 import org.wahlzeit.services.DataObject;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -8,11 +10,13 @@ import java.util.Set;
 /**
  * Created by andreas on 09.01.17.
  */
+
+@Subclass
 public class MushroomType extends DataObject
 {
-    private String name;
-    private MushroomType superType;
-    private Set<MushroomType> subtypes = new HashSet<MushroomType>();
+    /*@Ignore*/ private String name;
+    /*@Ignore*/ private MushroomType superType;
+    /*@Ignore*/ private Set<MushroomType> subtypes = new HashSet<MushroomType>();
 
     public MushroomType(String name)
     {

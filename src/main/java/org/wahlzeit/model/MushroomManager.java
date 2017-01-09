@@ -1,13 +1,15 @@
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Ignore;
+
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MushroomManager 
 {
-    private Map<String, Mushroom> Mushrooms = new HashMap<String, Mushroom>();
-    private Map<String, MushroomType> MushroomTypes = new HashMap<String, MushroomType>();
+    @Ignore private Map<String, Mushroom> Mushrooms = new HashMap<String, Mushroom>();
+    @Ignore private Map<String, MushroomType> MushroomTypes = new HashMap<String, MushroomType>();
 
     private static MushroomManager instance;
 

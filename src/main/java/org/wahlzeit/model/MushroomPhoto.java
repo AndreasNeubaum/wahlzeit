@@ -13,7 +13,8 @@ import static java.util.EnumSet.*;
 @Subclass
 public class MushroomPhoto extends Photo
 {
-    public Mushroom getMushroom() {
+    public Mushroom getMushroom()
+    {
         return mushroom;
     }
 
