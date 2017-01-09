@@ -11,6 +11,8 @@ import java.util.EnumSet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
+
 
 /**
  * Created by andreas on 07.11.16.
@@ -36,65 +38,45 @@ public class MushroomPhotoTest
     public void TestDefaultConstructor()
     {
         MushroomPhoto mp = new MushroomPhoto();
-        assertTrue(mp.getPsychoactive());
-        assertFalse(mp.getMedicalUse());
-        assertEquals(Geniessbarkeit.ToedlichGiftig, mp.getGeniessbarkeit());
-        assertTrue(mp.getVorkommen().isEmpty());
-    }
-
-    @Test
-    public void TestIdConstructor()
-    {
-        MushroomPhoto mp = new MushroomPhoto(PhotoId.getNextId());
-        assertTrue(mp.getPsychoactive());
-        assertFalse(mp.getMedicalUse());
-        assertEquals(Geniessbarkeit.ToedlichGiftig, mp.getGeniessbarkeit());
-        assertTrue(mp.getVorkommen().isEmpty());
+        assertNull(mp.getMushroom());
     }
 
     @Test
     public void TestFullConstructor()
     {
-        MushroomPhoto mp = new MushroomPhoto(PhotoId.getNextId(), false, true, Geniessbarkeit.Ungeniessbar, EnumSet.allOf(Vorkommen.class));
-        assertFalse(mp.getPsychoactive());
-        assertTrue(mp.getMedicalUse());
-        assertEquals(Geniessbarkeit.Ungeniessbar, mp.getGeniessbarkeit());
-        assertFalse(mp.getVorkommen().isEmpty());
+        MushroomType mt = new MushroomType("t1");
+        MushroomPhoto mp = new MushroomPhoto(PhotoId.getNextId(), new Mushroom("m1", true, true, EnumSet.noneOf(Vorkommen.class), mt));
+        assertTrue(mp.getMushroom().getPsychoactive());
+        assertTrue(mp.getMushroom().getMedicalUse());
+        assertEquals("m1", mp.getMushroom().getName());
+        assertFalse(mp.getMushroom().getVorkommen().isEmpty());
+        assertEquals(mt, mp.getMushroom().getMushroomType());
     }
 
     @Test
     public void TestGetSetPsychoactive()
     {
-        MushroomPhoto mp = new MushroomPhoto();
-        assertTrue(mp.getPsychoactive());
-        mp.setPsychoactive(false);
-        assertFalse(mp.getPsychoactive());
+        MushroomPhoto mp = new MushroomPhoto(PhotoId.getNextId(), new Mushroom("name", new MushroomType("type")));
+        assertFalse(mp.getMushroom().getPsychoactive());
+        mp.getMushroom().setPsychoactive(true);
+        assertTrue(mp.getMushroom().getPsychoactive());
     }
 
     @Test
     public void TestGetSetMedicalUse()
     {
-        MushroomPhoto mp = new MushroomPhoto();
-        assertFalse(mp.getMedicalUse());
-        mp.setMedicalUse(true);
-        assertTrue(mp.getMedicalUse());
-    }
-
-    @Test
-    public void TestGetSetGeniessbarkeit()
-    {
-        MushroomPhoto mp = new MushroomPhoto();
-        assertEquals(Geniessbarkeit.ToedlichGiftig, mp.getGeniessbarkeit());
-        mp.setGeniessbarkeit(Geniessbarkeit.Ungeniessbar);
-        assertEquals(Geniessbarkeit.Ungeniessbar, mp.getGeniessbarkeit());
+        MushroomPhoto mp = new MushroomPhoto(PhotoId.getNextId(), new Mushroom("name", new MushroomType("type")));
+        assertFalse(mp.getMushroom().getMedicalUse());
+        mp.getMushroom().setMedicalUse(true);
+        assertTrue(mp.getMushroom().getMedicalUse());
     }
 
     @Test
     public void TestGetSetVorkommen()
     {
-        MushroomPhoto mp = new MushroomPhoto();
-        assertTrue(mp.getVorkommen().isEmpty());
-        mp.setVorkommen(EnumSet.allOf(Vorkommen.class));
-        assertFalse(mp.getVorkommen().isEmpty());
+        MushroomPhoto mp = new MushroomPhoto(PhotoId.getNextId(), new Mushroom("name", new MushroomType("type")));
+        assertTrue(mp.getMushroom().getVorkommen().isEmpty());
+        mp.getMushroom().setVorkommen(EnumSet.allOf(Vorkommen.class));
+        assertFalse(mp.getMushroom().getVorkommen().isEmpty());
     }
 }

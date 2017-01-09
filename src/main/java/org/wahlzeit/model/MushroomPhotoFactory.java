@@ -25,12 +25,18 @@ public class MushroomPhotoFactory extends PhotoFactory
         return new MushroomPhoto();
     }
 
+
     /**
      * Creates a new photo with the specified id
      */
     @Override
     public Photo createPhoto(PhotoId id) {
         return new MushroomPhoto(id);
+    }
+
+    public Photo createPhoto(PhotoId id, Mushroom mushroom)
+    {
+        return new MushroomPhoto(id, mushroom);
     }
 
     /**
