@@ -7,9 +7,20 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-/**
- * Created by andreas on 09.01.17.
- */
+
+/*
+* Einordnung in 6D Pattern-Raum
+* 1) delegation of object creation: spereate object (MushroomManager)
+* 2) sleection of concrete class: on the spot (es gibt nur eine concrete class --> hard coded)
+* 3) configuraton of class mapping: in-code (weder anotationen noch config-file, au0erdem gibt es nur eine Klasse und daher nichts zu mappen)
+* 4) instantiation of concrte class: in-code (MushroomManager ruft direkt new auf)
+* 5) initialization of new pbject: by fixed signature (Konstruktor mit Parameterliste, keine hard-coded Konstanten)
+* 6) N/A (Abhängige Objekte (MushroomType) werdne nicht selbst erzeugt, dependency injection)
+*
+* Instanziierung (beginnend beim MushroomManager):
+* -MushroomManager.getInstance().createMushroom(String name, MushroomType MushroomType)
+* --> dieser ruft new Mushroom() auf
+* */
 
 @Subclass
 public class MushroomType extends DataObject
